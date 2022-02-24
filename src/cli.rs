@@ -1,5 +1,7 @@
 use clap::Parser;
 
+use crate::EyreResult;
+
 #[derive(Parser, Debug)]
 #[clap(author, version, about)]
 pub enum Commands {
@@ -28,4 +30,12 @@ pub struct DefinePackageArgs {
     pub stdio: bool,
     #[clap(short, long)]
     pub raw: Option<String>,
+}
+
+pub fn setup_logging(verbosity: usize) -> EyreResult<()> {
+    if verbosity > 0 {
+        color_eyre::install().unwrap();
+    }
+
+    Ok(())
 }
